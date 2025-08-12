@@ -113,10 +113,9 @@ async function main() {
       if (batchData.statusCode === 200 && batchData.data.length > 0) {
         allData.push(...batchData.data)
       }
-
       allData.push(batchData)
     }
-    // console.log("data---", JSON.stringify(allData))
+    console.log("data---", JSON.stringify(allData))
     mongoose.disconnect()
   } catch (error) {
     console.error("脚本执行出错:", error.message)

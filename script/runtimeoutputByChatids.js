@@ -80,12 +80,18 @@ async function main() {
 
   // 添加写入JSON文件的代码 generate json 生成时间戳
   const timestamp = new Date().getTime()
+  // 确保output文件夹存在
+  try {
+    await fs.mkdir("output", { recursive: true })
+  } catch (err) {
+    console.error("创建文件夹失败:", err)
+  }
   try {
     await fs.writeFile(
-      `output_${timestamp}.json`,
+      `output/output_${timestamp}.json`,
       JSON.stringify(datas, null, 2)
     )
-    console.log(`数据已成功写入output_${timestamp}.json文件`)
+    console.log(`数据已成功写入output/output_${timestamp}.json文件`)
   } catch (err) {
     console.error("写入文件失败:", err)
   }
