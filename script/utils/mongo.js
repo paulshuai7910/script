@@ -2,25 +2,6 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 dotenv.config()
 const { Schema } = mongoose
-const userSchema = new mongoose.Schema(
-  {
-    username: {
-      type: String,
-      required: true,
-      unique: true, // 唯一
-    },
-    firstGroup: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    subGroups: {
-      type: [String],
-      default: [],
-    },
-  },
-  { collection: "users" }
-)
 const ChatItemSchema = new mongoose.Schema(
   {
     responseData: {
@@ -48,6 +29,34 @@ const ChatItemSchema = new mongoose.Schema(
   },
   { collection: "chatitems" }
 )
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true, // 唯一
+    },
+    firstGroup: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    secondGroup: {
+      type: [String],
+      default: [],
+    },
+  },
+  { collection: "users" }
+)
+const tracksSchema = new Schema({
+  event: { type: String, required: true },
+  uid: String,
+  teamId: String,
+  tmbId: String,
+  createTime: { type: Date, default: () => new Date() },
+  data: Object,
+})
+export const MongoTracks = mongoose.model("tracks", tracksSchema)
 export const MongoUser = mongoose.model("users", userSchema)
 export const MongoChatItems = mongoose.model("chatitems", ChatItemSchema)
 export async function connectDB() {

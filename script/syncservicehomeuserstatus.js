@@ -95,7 +95,7 @@ async function main() {
     const users = await MongoUser.find({
       firstGroup: { $in: ["远程技术支持中心", "渠道"] },
     })
-      .select("username status -_id") // 只返回username，status字段
+      .select("username _id") // 只返回username，status字段
       .lean()
     if (users.length === 0) {
       return []
